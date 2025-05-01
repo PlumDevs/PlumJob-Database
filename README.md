@@ -25,7 +25,7 @@ DB_URL=jdbc:mysql://localhost:3306/plumjob_logintester <br>
 DB_USER=admin <br>
 DB_PASSWORD=admin1234 <br> <br>
 
-This is for testing purposes only, before we set up and integrate global database. <br> **NEVER commit with real, hard coded credentials in application.properties or the .env file to the repository.**
+This is for testing purposes only, before we set up and integrate global database. <br> **NEVER commit with real, hard coded credentials in application.properties or the .env file to the repository.** If you use git add . when committing, be sure to **exclude the .env** using git rm.
 
 ### Run the application ###
 Check running logs if the set up is successful
