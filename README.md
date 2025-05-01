@@ -19,7 +19,7 @@ spring.datasource.password=${DB_PASSWORD} <br>
 <br>
 More on how to set up those: https://www.jetbrains.com/help/objc/add-environment-variables-and-program-arguments.html <br> <br>
 
-TLDR: Create a file called .env in your project directory, **DO NOT ADD IT TO GIT** and add it to run configurations. <br>
+TLDR: Create a file called .env in your project directory, **DO NOT ADD IT TO GIT** and add it to run configurations. <br> <br>
 Contents of the .env file: <br>
 DB_URL=jdbc:mysql://localhost:3306/plumjob_logintester <br>
 DB_USER=admin <br>
