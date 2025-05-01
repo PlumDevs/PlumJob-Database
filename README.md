@@ -21,8 +21,8 @@ More on how to set up those: https://www.jetbrains.com/help/objc/add-environment
 
 TLDR: Create a file called .env in your project directory, **DO NOT ADD IT TO GIT** and add it to run configurations. <br>
 Contents of the .env file: <br>
-DB_URL=jdbc:mysql://localhost:3306/plumjob_logintester
-DB_USER=admin
+DB_URL=jdbc:mysql://localhost:3306/plumjob_logintester <br>
+DB_USER=admin <br>
 DB_PASSWORD=admin1234 <br> <br>
 
 This is for testing purposes only, before we set up and integrate global database. <br> **NEVER commit with real, hard coded credentials in application.properties or the .env file to the repository.**
