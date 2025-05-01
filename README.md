@@ -15,7 +15,7 @@ spring.datasource.username=${DB_USER} <br>
 spring.datasource.password=${DB_PASSWORD} <br>
 **DB_URL** is your database's URL, for example: jdbc:mysql://localhost:3306/plumjob_logintester <br>
 **DB_USER** is your database's admin username, for example: admin <br>
-**DB_USER** is your database's admin password, for example: admin1234 <br>
+**DB_PASSWORD** is your database's admin password, for example: admin1234 <br>
 <br>
 More on how to set up those: https://www.jetbrains.com/help/objc/add-environment-variables-and-program-arguments.html <br> <br>
 This is for testing purposes only, before we set up and integrate global database. <br> **NEVER commit with real, hard coded credentials in application.properties or the .env file to the repository.**
