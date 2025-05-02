@@ -13,7 +13,7 @@ Create the database in it using the initializing script and sample data
 spring.datasource.url=${DB_URL} <br>
 spring.datasource.username=${DB_USER} <br>
 spring.datasource.password=${DB_PASSWORD} <br>
-**DB_URL** is your database's URL, for example: jdbc:mysql://localhost:3306/plumjob_logintester <br>
+**DB_URL** is your database's URL, for example: jdbc:mysql://localhost:3306/plum <br>
 **DB_USER** is your database's admin username, for example: admin <br>
 **DB_PASSWORD** is your database's admin password, for example: admin1234 <br>
 <br>
