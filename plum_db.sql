@@ -16,14 +16,12 @@ CREATE TABLE authorities (
 CREATE UNIQUE INDEX ix_auth_username ON authorities (username, authority);
 
 CREATE TABLE UserInfo (
-	user_id VARCHAR(50) PRIMARY KEY,
+	username VARCHAR(50) PRIMARY KEY,
     FOREIGN KEY(user_id) REFERENCES users(username),
-    user_name VARCHAR(30) NOT NULL,
-	user_middlename VARCHAR(30),
+    user_legalname VARCHAR(30) NOT NULL,
     user_lastname VARCHAR(30) NOT NULL,
-    user_birthday DATE NOT NULL,
     user_email VARCHAR(255), -- 320 lub 255
-    accoutn_creation_date DATE,
+    account_creation_date DATE,
     is_active BOOL
 );
 
@@ -136,32 +134,34 @@ END//
 
 DELIMITER ;
 
--- INSERT INTO RecruitmentStatus VALUES (1, "toApply");
--- INSERT INTO RecruitmentStatus VALUES (2, "applied");
--- INSERT INTO RecruitmentStatus VALUES (3, "onlineAssesment");
--- INSERT INTO RecruitmentStatus VALUES (4, "afterOA");
--- INSERT INTO RecruitmentStatus VALUES (5, "interviewScheduled");
--- INSERT INTO RecruitmentStatus VALUES (6, "afterInterview");
--- INSERT INTO RecruitmentStatus VALUES (7, "jobOffer");
--- INSERT INTO RecruitmentStatus VALUES (8, "rejected");
--- INSERT INTO RecruitmentStatus VALUES (9, "ghosted");
--- INSERT INTO RecruitmentStatus VALUES (10, "accepted");
+INSERT INTO RecruitmentStatus VALUES (1, "toApply");
+INSERT INTO RecruitmentStatus VALUES (2, "applied");
+INSERT INTO RecruitmentStatus VALUES (3, "onlineAssesment");
+INSERT INTO RecruitmentStatus VALUES (4, "afterOA");
+INSERT INTO RecruitmentStatus VALUES (5, "interviewScheduled");
+INSERT INTO RecruitmentStatus VALUES (6, "afterInterview");
+INSERT INTO RecruitmentStatus VALUES (7, "jobOffer");
+INSERT INTO RecruitmentStatus VALUES (8, "rejected");
+INSERT INTO RecruitmentStatus VALUES (9, "ghosted");
+INSERT INTO RecruitmentStatus VALUES (10, "accepted");
 
-INSERT INTO users VALUES("testo", "1234", 1);
-INSERT INTO users VALUES("testo2", "333", 2);
-INSERT INTO RecruitmentOffer VALUES(1, "mrowkidb", "naczelna mrowka", '2025-04-01', '2025-04-27', "nie", 0);
-INSERT INTO RecruitmentOffer VALUES(2, "mrowkidb", "pod mrowka", '2025-05-01', '2025-05-07', "nie", 1);
-INSERT INTO RecruitmentOffer VALUES(3, "mrowkojadydb", "pomoc domowa", '2025-05-02',  '2025-08-01', "ma pomagac", 1);
+-- INSERT INTO users VALUES("testo", "1234", 1);
+-- INSERT INTO users VALUES("testo2", "333", 2);
+-- INSERT INTO RecruitmentOffer VALUES(1, "mrowkidb", "naczelna mrowka", '2025-04-01', '2025-04-27', "nie", 0);
+-- INSERT INTO RecruitmentOffer VALUES(2, "mrowkidb", "pod mrowka", '2025-05-01', '2025-05-07', "nie", 1);
+-- INSERT INTO RecruitmentOffer VALUES(3, "mrowkojadydb", "pomoc domowa", '2025-05-02',  '2025-08-01', "ma pomagac", 1);
 
-INSERT INTO RecruitmentHistory VALUES(1, "testo", 1, '2025-04-01', 10, 1);
-INSERT INTO RecruitmentHistory VALUES(2, "testo", 2, '2025-05-03', 5, 0);
-INSERT INTO RecruitmentHistory VALUES(3, "testo2", 3, '2025-05-09', 3, 0);
-INSERT INTO RecruitmentHistory VALUES(4, "testo2", 2, '2025-05-09', 1, 0);
-INSERT INTO RecruitmentHistory VALUES(5, "testo2", 3, '2025-06-01', 10, 1);
-INSERT INTO RecruitmentHistory VALUES(6, "testo", 3, '2025-06-01', 10, 1);
+-- INSERT INTO RecruitmentHistory VALUES(1, "testo", 1, '2025-04-01', 10, 1);
+-- INSERT INTO RecruitmentHistory VALUES(2, "testo", 2, '2025-05-03', 5, 0);
+-- INSERT INTO RecruitmentHistory VALUES(3, "testo2", 3, '2025-05-09', 3, 0);
+-- INSERT INTO RecruitmentHistory VALUES(4, "testo2", 2, '2025-05-09', 1, 0);
+-- INSERT INTO RecruitmentHistory VALUES(5, "testo2", 3, '2025-06-01', 10, 1);
+-- INSERT INTO RecruitmentHistory VALUES(6, "testo", 3, '2025-06-01', 10, 1);
 
-SELECT * FROM RecruitmentHistory;
+-- SELECT * FROM RecruitmentHistory;
 
-CALL sp_showUserHistory("testo", 2);
+-- CALL sp_showUserHistory("testo", 2);
+
+-- SELECT get_accepted()
 
 SELECT get_accepted()
