@@ -17,7 +17,7 @@ CREATE UNIQUE INDEX ix_auth_username ON authorities (username, authority);
 
 CREATE TABLE UserInfo (
 	username VARCHAR(50) PRIMARY KEY,
-    FOREIGN KEY(user_id) REFERENCES users(username),
+    FOREIGN KEY(username) REFERENCES users(username),
     user_legalname VARCHAR(30) NOT NULL,
     user_lastname VARCHAR(30) NOT NULL,
     user_email VARCHAR(255), -- 320 lub 255
@@ -27,11 +27,23 @@ CREATE TABLE UserInfo (
 
 CREATE TABLE RecruitmentOffer (
 	recrutation_id INT PRIMARY KEY AUTO_INCREMENT,
+    who_created VARCHAR(50),
+    FOREIGN KEY(who_created) REFERENCES users(username),
 	company_name VARCHAR(100),
     position_name VARCHAR(100),
     recrutation_start DATE,
     recrutation_end DATE,
     additional_req TEXT,
+    offer_link VARCHAR(255),
+    is_active BOOL
+);
+
+CREATE TABLE Ads (
+	ad_id INT PRIMARY KEY AUTO_INCREMENT,
+    who_created VARCHAR(50),
+    ad_start DATE,
+    ad_end DATE,
+    offer_link VARCHAR(255),
     is_active BOOL
 );
 
@@ -147,9 +159,9 @@ INSERT INTO RecruitmentStatus VALUES (10, "accepted");
 
 -- INSERT INTO users VALUES("testo", "1234", 1);
 -- INSERT INTO users VALUES("testo2", "333", 2);
--- INSERT INTO RecruitmentOffer VALUES(1, "mrowkidb", "naczelna mrowka", '2025-04-01', '2025-04-27', "nie", 0);
--- INSERT INTO RecruitmentOffer VALUES(2, "mrowkidb", "pod mrowka", '2025-05-01', '2025-05-07', "nie", 1);
--- INSERT INTO RecruitmentOffer VALUES(3, "mrowkojadydb", "pomoc domowa", '2025-05-02',  '2025-08-01', "ma pomagac", 1);
+-- INSERT INTO RecruitmentOffer VALUES(1, "testo", "mrowkidb", "naczelna mrowka", '2025-04-01', '2025-04-27', "nie", "link1.com", 0);
+-- INSERT INTO RecruitmentOffer VALUES(2, "testo", "mrowkidb", "pod mrowka", '2025-05-01', '2025-05-07', "nie", "link2.com", 1);
+-- INSERT INTO RecruitmentOffer VALUES(3, "testo2", "mrowkojadydb", "pomoc domowa", '2025-05-02',  '2025-08-01', "ma pomagac", "link3.com", 1);
 
 -- INSERT INTO RecruitmentHistory VALUES(1, "testo", 1, '2025-04-01', 10, 1);
 -- INSERT INTO RecruitmentHistory VALUES(2, "testo", 2, '2025-05-03', 5, 0);
@@ -163,5 +175,3 @@ INSERT INTO RecruitmentStatus VALUES (10, "accepted");
 -- CALL sp_showUserHistory("testo", 2);
 
 -- SELECT get_accepted()
-
-SELECT get_accepted()
