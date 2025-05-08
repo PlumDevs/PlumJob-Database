@@ -44,6 +44,7 @@ CREATE TABLE Ads (
     ad_start DATE,
     ad_end DATE,
     offer_link VARCHAR(255),
+    img_libk VARCHAR(255),
     is_active BOOL
 );
 
