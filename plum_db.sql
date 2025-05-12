@@ -54,12 +54,10 @@ CREATE TABLE RecruitmentHistory (
     company VARCHAR(50),
     FOREIGN KEY(user_id) REFERENCES users(username),
     user_start_date DATE,
-    stage INT,
-    FOREIGN KEY(stage) REFERENCES RecruitmentStatus(status_id),
+    stage VARCHAR(50),
     description VARCHAR(200),
     ended BOOL
 );
-
 
 CREATE INDEX ix_history_users ON RecruitmentHistory (user_id, user_start_date);
 
