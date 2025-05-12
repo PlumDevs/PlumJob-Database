@@ -43,7 +43,7 @@ CREATE TABLE RecruitmentStatus (
 DELIMITER $$
 CREATE PROCEDURE sp_showUserHistory (userID VARCHAR(50), onlyActive BOOL)
 BEGIN
-	SELECT * FROM RecruitmentHistory WHERE user_id = userID and ended = onlyActive;
+	SELECT * FROM RecruitmentHistory WHERE user_id = userID and NOT (ended = onlyActive);
 END $$
 DELIMITER 
 
