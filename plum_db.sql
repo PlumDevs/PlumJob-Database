@@ -25,19 +25,6 @@ CREATE TABLE UserInfo (
     is_active BOOL
 );
 
-CREATE TABLE RecruitmentOffer (
-	recrutation_id INT PRIMARY KEY AUTO_INCREMENT,
-    who_created VARCHAR(50),
-    FOREIGN KEY(who_created) REFERENCES users(username),
-	company_name VARCHAR(100),
-    position_name VARCHAR(100),
-    recrutation_start DATE,
-    recrutation_end DATE,
-    additional_req TEXT,
-    offer_link VARCHAR(255),
-    is_active BOOL
-);
-
 CREATE TABLE Ads (
 	ad_id INT PRIMARY KEY AUTO_INCREMENT,
     who_created VARCHAR(50),
@@ -53,17 +40,26 @@ CREATE TABLE RecruitmentStatus (
     status_name VARCHAR(50)
 );
 
+DELIMITER $$
+CREATE PROCEDURE sp_showUserHistory (userID VARCHAR(50), onlyActive BOOL)
+BEGIN
+	SELECT * FROM RecruitmentHistory WHERE user_id = userID and ended = onlyActive;
+END $$
+DELIMITER 
+
 CREATE TABLE RecruitmentHistory (
 	history_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id VARCHAR(50),
+    position VARCHAR(50),
+    company VARCHAR(50),
     FOREIGN KEY(user_id) REFERENCES users(username),
-    recrutation_id INT,
-    FOREIGN KEY(recrutation_id) REFERENCES RecruitmentOffer(recrutation_id),
     user_start_date DATE,
     stage INT,
     FOREIGN KEY(stage) REFERENCES RecruitmentStatus(status_id),
+    description VARCHAR(200),
     ended BOOL
 );
+
 
 CREATE INDEX ix_history_users ON RecruitmentHistory (user_id, user_start_date);
 
@@ -112,25 +108,6 @@ CREATE TABLE ErrorLogs (
     error_code INT,
     error_date DATE
 );
-
-DELIMITER //
-
-CREATE PROCEDURE sp_showUserHistory (userID VARCHAR(50), onlyActive INT)
-BEGIN
-	IF onlyActive = 0 OR onlyActive = 1 THEN
-		SELECT * FROM RecruitmentHistory AS his INNER JOIN RecruitmentOffer AS offe
-		ON his.recrutation_id = offe.recrutation_id
-		WHERE his.user_id = userID AND his.ended = onlyActive
-        ORDER BY his.user_start_date;
-	ELSE
-		SELECT * FROM RecruitmentHistory AS his INNER JOIN RecruitmentOffer AS offe
-		ON his.recrutation_id = offe.recrutation_id
-		WHERE his.user_id = userID
-        ORDER BY his.user_start_date;
-	END IF;
-END//
-
--- DELIMITER //
 
 CREATE FUNCTION get_accepted()
 RETURNS INT
