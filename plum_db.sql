@@ -151,3 +151,27 @@ INSERT INTO RecruitmentStatus VALUES (10, "accepted");
 -- CALL sp_showUserHistory("testo", 2);
 
 -- SELECT get_accepted()
+
+
+CREATE TABLE RecruitmentStatusHistory (
+    status_history_id INT PRIMARY KEY AUTO_INCREMENT,
+    recruitment_history_id INT NOT NULL,
+    old_status VARCHAR(50),
+    new_status VARCHAR(50),
+    changed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (recruitment_history_id) REFERENCES RecruitmentHistory(history_id)
+);
+
+DELIMITER //
+CREATE PROCEDURE sp_updateStatus(recruitation_id INT, new_stage VARCHAR(50)) 
+BEGIN
+    IF (new_stage IN ("accepted the offer", "rejected")) THEN
+		UPDATE RecruitmentHistory SET ended = 1 WHERE history_id = recruitation_id;
+	ELSE
+		UPDATE RecruitmentHistory SET ended = 0 WHERE history_id = recruitation_id;
+    END IF;
+    
+	INSERT INTO RecruitmentStatusHistory (recruitment_history_id, old_status, new_status) VALUES (recruitation_id, (SELECT stage FROM RecruitmentHistory WHERE history_id = recruitation_id), new_stage);
+	UPDATE RecruitmentHistory SET stage = new_stage WHERE history_id = recruitation_id;
+END
+//
