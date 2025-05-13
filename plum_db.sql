@@ -165,7 +165,8 @@ CREATE TABLE RecruitmentStatusHistory (
 DELIMITER //
 CREATE PROCEDURE sp_updateStatus(recruitation_id INT, new_stage VARCHAR(50)) 
 BEGIN
-    IF (new_stage IN ("accepted the offer", "rejected")) THEN
+    IF (new_stage IN ("accepted the offer", "rejected", "declined the offer",
+                "ghosted")) THEN
 		UPDATE RecruitmentHistory SET ended = 1 WHERE history_id = recruitation_id;
 	ELSE
 		UPDATE RecruitmentHistory SET ended = 0 WHERE history_id = recruitation_id;
