@@ -79,7 +79,7 @@ CREATE INDEX ix_tag_users ON TagUsers (user_id, tag_id);
 CREATE TABLE TagOffer (
 	tag_offer_id INT PRIMARY KEY AUTO_INCREMENT,
     offer_id INT,
-    FOREIGN KEY(offer_id) REFERENCES RecruitmentOffer(recrutation_id),
+    FOREIGN KEY(offer_id) REFERENCES RecruitmentHistory(history_id),
     tag_id INT,
     FOREIGN KEY(tag_id) REFERENCES TagCodes(tag_id)
 );
@@ -106,6 +106,8 @@ CREATE TABLE ErrorLogs (
     error_code INT,
     error_date DATE
 );
+
+DELIMITER //
 
 CREATE FUNCTION get_accepted()
 RETURNS INT
@@ -151,7 +153,6 @@ INSERT INTO RecruitmentStatus VALUES (10, "accepted");
 -- CALL sp_showUserHistory("testo", 2);
 
 -- SELECT get_accepted()
-
 
 CREATE TABLE RecruitmentStatusHistory (
     status_history_id INT PRIMARY KEY AUTO_INCREMENT,
