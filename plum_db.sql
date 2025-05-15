@@ -177,3 +177,43 @@ BEGIN
 	UPDATE RecruitmentHistory SET stage = new_stage WHERE history_id = recruitation_id;
 END
 //
+
+DELIMITER $$
+
+CREATE PROCEDURE sp_getUserStatusChanges(
+    IN input_user_id VARCHAR(50),
+    IN input_start_date DATE,
+    IN input_end_date DATE
+)
+BEGIN
+    SELECT 
+        rsh.status_history_id,
+        rh.user_id,
+        rh.position,
+        rh.company,
+        rsh.old_status,
+        rsh.new_status,
+        rsh.changed_at
+    FROM RecruitmentStatusHistory rsh
+    JOIN RecruitmentHistory rh ON rsh.recruitment_history_id = rh.history_id
+    WHERE rh.user_id = input_user_id
+      AND rsh.changed_at BETWEEN input_start_date AND input_end_date
+    ORDER BY rsh.changed_at ASC;
+END$$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE PROCEDURE sp_DeleteRecruitmentRecord(IN target_history_id INT)
+BEGIN
+    DELETE FROM RecruitmentStatusHistory
+    WHERE recruitment_history_id = target_history_id;
+
+    DELETE FROM RecruitmentHistory
+    WHERE history_id = target_history_id;
+END$$
+
+DELIMITER ;
+
+
