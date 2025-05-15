@@ -216,4 +216,24 @@ END$$
 
 DELIMITER ;
 
+DELIMITER //
+
+CREATE PROCEDURE sp_addNewRecruitment(
+    IN p_user_id VARCHAR(50),
+    IN p_position VARCHAR(50),
+    IN p_company VARCHAR(50),
+    IN p_user_start_date DATE,
+    IN p_stage VARCHAR(50),
+    IN p_description VARCHAR(200),
+    IN p_ended BOOLEAN
+)
+BEGIN
+    INSERT INTO RecruitmentHistory(user_id, position, company, user_start_date, stage, description, ended)
+    VALUES (p_user_id, p_position, p_company, p_user_start_date, p_stage, p_description, p_ended);
+
+    CALL sp_updateStatus(LAST_INSERT_ID(), p_stage);
+END //
+
+DELIMITER ;
+
 
