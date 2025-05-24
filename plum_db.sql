@@ -45,7 +45,7 @@ CREATE PROCEDURE sp_showUserHistory (userID VARCHAR(50), onlyActive BOOL)
 BEGIN
 	SELECT * FROM RecruitmentHistory WHERE user_id = userID and NOT (ended = onlyActive);
 END $$
-DELIMITER 
+DELIMITER ;
 
 CREATE TABLE RecruitmentHistory (
 	history_id INT PRIMARY KEY AUTO_INCREMENT,
