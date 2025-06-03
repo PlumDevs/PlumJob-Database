@@ -22,7 +22,9 @@ CREATE TABLE UserInfo (
     user_lastname VARCHAR(30) NOT NULL,
     user_email VARCHAR(255), -- 320 lub 255
     account_creation_date DATE,
-    is_active BOOL
+    is_active BOOL,
+	profile_picture LONGBLOB,
+    profile_picture_type VARCHAR(50)
 );
 
 CREATE TABLE Ads (
