@@ -238,4 +238,62 @@ END //
 
 DELIMITER ;
 
+DELIMITER $$
+
+CREATE PROCEDURE `sp_getUserStatusChangesFullPath` (
+    IN input_user_id VARCHAR(50)
+)
+BEGIN
+    WITH FinishedRecruitments AS (
+        SELECT recruitment_history_id
+        FROM RecruitmentStatusHistory
+        WHERE new_status IN ('accepted the offer', 'declined the offer', 'rejected')
+        GROUP BY recruitment_history_id
+    ),
+    
+    OrderedTransitions AS (
+        SELECT 
+            rsh.recruitment_history_id,
+            rh.user_id,
+            rsh.status_history_id,
+            rsh.old_status,
+            rsh.new_status,
+            rsh.changed_at,
+            ROW_NUMBER() OVER (
+                PARTITION BY rsh.recruitment_history_id 
+                ORDER BY rsh.changed_at
+            ) AS rn
+        FROM RecruitmentStatusHistory rsh
+        JOIN RecruitmentHistory rh ON rh.history_id = rsh.recruitment_history_id
+        WHERE rh.user_id = input_user_id
+          AND rsh.recruitment_history_id IN (
+              SELECT recruitment_history_id FROM FinishedRecruitments
+          )
+    ),
+    
+    TransitionCounts AS (
+        SELECT 
+            curr.new_status AS from_status,
+            next.new_status AS to_status,
+            COUNT(*) AS weight
+        FROM OrderedTransitions curr
+        JOIN OrderedTransitions next 
+          ON curr.recruitment_history_id = next.recruitment_history_id
+         AND curr.rn + 1 = next.rn
+        GROUP BY from_status, to_status
+    )
+
+    SELECT 
+        ROW_NUMBER() OVER (ORDER BY weight DESC) AS status_history_id,
+        from_status,
+        to_status,
+        weight
+    FROM TransitionCounts
+    ORDER BY weight DESC;
+
+END$$
+
+DELIMITER ;
+
+
 
