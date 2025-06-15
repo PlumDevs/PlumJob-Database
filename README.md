@@ -3,7 +3,7 @@
 + ER diagram
 + Initializing script
 
-## How to set up local database for your project? ##
+## How to set up local database for your project? - instructions for devs ##
 
 ### Download MySQL ###
 https://www.mysql.com/
@@ -29,4 +29,7 @@ This is for testing purposes only, before we set up and integrate global databas
 
 ### Run the application ###
 Check running logs if the set up is successful
+
+## Major workflow update - online database ##
+From now on we will be using one database deployed using AWS. The instructions regarding .env file remain the same but new credentials were sent to each developer using secure channel. Please update your .env accordingly and make sure your local cloned project is running correctly.
 
